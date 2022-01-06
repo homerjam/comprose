@@ -8,6 +8,11 @@
   "main": "dist/comprose.js",
   "module": "dist/comprose.mjs",
   "typings": "dist/comprose.d.ts",
+  "files": [
+    "dist/*",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "lint": "eslint src/* test/*",
     "build": "rollup -c",
