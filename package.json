@@ -18,14 +18,15 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "test": "ava --watch test/*.spec.js",
-    "dev": "concurrently -k 'npm run watch' 'npm run test'",
-    "data": "concurrently 'npm:data:*'",
-    "data:compromise": "./scripts/compromise.sh"
+    "dev": "concurrently -k 'npm run watch' 'npm run test'"
   },
   "dependencies": {
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.16.5",
+    "@rollup/plugin-json": "^4.1.0",
     "@types/lodash-es": "^4.17.5",
     "@types/node": "^17.0.8",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
@@ -47,13 +48,11 @@
   },
   "ava": {
     "ignoredByWatcher": [
-      "*",
       "dist/**.*"
     ]
   },
   "eslintIgnore": [
-    "dist/*.*",
-    "src/data/**/*.js"
+    "dist/*.*"
   ],
   "prettier": {
     "semi": true,

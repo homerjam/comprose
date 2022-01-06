@@ -28,11 +28,11 @@
     "import/no-unresolved": [
       "error",
       {
-        "ignore": [
-          "node:*"
-        ]
+        "ignore": ["node:*"]
       }
     ],
+    "unicorn/filename-case": "off",
+    "unicorn/no-array-callback-reference": "off",
     "unicorn/no-array-for-each": "off",
     "unicorn/no-lonely-if": "off",
     "unicorn/no-null": "off",
@@ -41,28 +41,31 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/*.ts"
-      ],
+      "files": ["**/*.ts"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "requireConfigFile": false
       },
-      "extends": [
-        "plugin:@typescript-eslint/recommended"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended"],
       "rules": {
         "@typescript-eslint/no-require-imports": "error",
         "@typescript-eslint/no-var-requires": "off",
         "import/no-unresolved": [
           "error",
           {
-            "ignore": [
-              "node:*",
-              ".js$"
-            ]
+            "ignore": ["node:*", ".js$"]
           }
         ]
+      }
+    },
+    {
+      "files": ["**/*.js"],
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "requireConfigFile": false
+      },
+      "rules": {
+        "prefer-const": "error"
       }
     }
   ]

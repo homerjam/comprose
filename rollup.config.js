@@ -1,5 +1,6 @@
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
+import json from '@rollup/plugin-json';
 import { main } from './package.json';
 
 const name = main.replace(/\.js$/, '');
@@ -12,7 +13,7 @@ const bundle = (config) => ({
 
 export default [
   bundle({
-    plugins: [esbuild()],
+    plugins: [json(), esbuild()],
     output: [
       {
         file: `${name}.js`,
