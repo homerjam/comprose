@@ -1,1 +1,3 @@
-export default ['United States of America'];
+export default [
+  "United States of America"
+];

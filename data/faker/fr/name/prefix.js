@@ -1,1 +1,7 @@
-export default ['M', 'Mme', 'Mlle', 'Dr', 'Prof'];
+export default [
+  "M",
+  "Mme",
+  "Mlle",
+  "Dr",
+  "Prof"
+];

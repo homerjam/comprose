@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export LC_CTYPE=C
+export LANG=C
+
 # change cjs > module
 grep -rl 'module\["exports"\] =' ./data | xargs sed -i '' -e 's/module\["exports"\] =/export default/g'
 grep -rl "module\['exports'\] =" ./data | xargs sed -i '' -e "s/module\['exports'\] =/export default/g"

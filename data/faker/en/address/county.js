@@ -1,8 +1,8 @@
 export default [
-  'Avon',
-  'Bedfordshire',
-  'Berkshire',
-  'Borders',
-  'Buckinghamshire',
-  'Cambridgeshire',
+  "Avon",
+  "Bedfordshire",
+  "Berkshire",
+  "Borders",
+  "Buckinghamshire",
+  "Cambridgeshire"
 ];

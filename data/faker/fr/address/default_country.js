@@ -1,1 +1,3 @@
-export default ['France'];
+export default [
+  "France"
+];

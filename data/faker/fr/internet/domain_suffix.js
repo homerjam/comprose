@@ -1,1 +1,9 @@
-export default ['com', 'fr', 'eu', 'info', 'name', 'net', 'org'];
+export default [
+  "com",
+  "fr",
+  "eu",
+  "info",
+  "name",
+  "net",
+  "org"
+];
