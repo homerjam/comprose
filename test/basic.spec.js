@@ -1,6 +1,11 @@
 import test from 'ava';
 
-import { name } from '../dist/comprose.mjs';
+import { data, name } from '../dist/comprose.mjs';
+
+test('data', (t) => {
+  t.log(`${data.compromise.people.femaleNames[0]}`);
+  t.pass();
+});
 
 test('name', (t) => {
   const result = name();

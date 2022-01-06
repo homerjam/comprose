@@ -49,10 +49,18 @@ files.forEach(({ data, path }) => {
 });
 
 await writeFile(
-  resolve(__dirname, '../src/data.json'),
-  JSON.stringify(dataJson)
+  resolve(__dirname, '../src/data/data.js'),
+  `export default ${JSON.stringify(dataJson)};`
 );
 await writeFile(
-  resolve(__dirname, '../src/dataPaths.json'),
-  JSON.stringify(dataPathsJson)
+  resolve(__dirname, '../src/data/data.json.js'),
+  `export default JSON.parse(\`${JSON.stringify(dataJson)}\`);`
 );
+await writeFile(
+  resolve(__dirname, '../src/data/data.json'),
+  JSON.stringify(dataJson)
+);
+// await writeFile(
+//   resolve(__dirname, '../src/data/data.paths.json'),
+//   JSON.stringify(dataPathsJson)
+// );

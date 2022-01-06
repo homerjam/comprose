@@ -1,19 +1,22 @@
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
-import json from '@rollup/plugin-json';
+import copy from 'rollup-plugin-copy';
 import { main } from './package.json';
 
 const name = main.replace(/\.js$/, '');
 
+const external = new Set(['./data/data.js']);
+
 const bundle = (config) => ({
   ...config,
   input: 'src/index.ts',
-  external: (id) => !/^[./]/.test(id),
+  external: (id) => {
+    return external.has(id) || !/^[./]/.test(id);
+  },
 });
 
 export default [
   bundle({
-    plugins: [json(), esbuild()],
     output: [
       {
         file: `${name}.js`,
@@ -26,12 +29,16 @@ export default [
         sourcemap: true,
       },
     ],
+    plugins: [
+      esbuild(),
+      copy({ targets: [{ src: 'src/data/data.js', dest: 'dist/data' }] }),
+    ],
   }),
   bundle({
-    plugins: [dts()],
     output: {
       file: `${name}.d.ts`,
       format: 'es',
     },
+    plugins: [dts()],
   }),
 ];

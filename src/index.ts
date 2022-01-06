@@ -1,5 +1,7 @@
 import { sample, upperFirst } from 'lodash-es';
-import data from './data.json';
+import _data from './data/data.js';
+
+export const data = _data;
 
 // export class Comprose {
 //   constructor() {}
