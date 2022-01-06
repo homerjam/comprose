@@ -1,0 +1,69 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      {
+        "js": "always",
+        "ts": "always",
+        "json": "always"
+      }
+    ],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "node:*"
+        ]
+      }
+    ],
+    "unicorn/no-array-for-each": "off",
+    "unicorn/no-lonely-if": "off",
+    "unicorn/no-null": "off",
+    "unicorn/no-object-as-default-parameter": "off",
+    "unicorn/prevent-abbreviations": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "requireConfigFile": false
+      },
+      "extends": [
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/no-require-imports": "error",
+        "@typescript-eslint/no-var-requires": "off",
+        "import/no-unresolved": [
+          "error",
+          {
+            "ignore": [
+              "node:*",
+              ".js$"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
