@@ -11,29 +11,75 @@ import _data from './data/data.js';
 
 export const data = _data;
 
-type Dataset = 'compromise' | 'faker';
-type Locale = 'en' | 'fr';
+/** Dataset type */
+export type Dataset = 'compromise' | 'faker';
 
-interface ComproseParams {
+/** Locale type */
+export type Locale = 'en' | 'fr';
+
+/**
+ * The params for {@link Comprose}.
+ *
+ * @public
+ */
+export interface ComproseParams {
+  /**
+   * The dataset to use
+   * @defaultValue 'faker'
+   */
   dataset?: Dataset;
+  /**
+   * The default locale to use
+   * @defaultValue 'en'
+   */
   locale?: Locale;
+  /**
+   * The fallback locale to use
+   * @defaultValue 'en'
+   */
+  localeFallback?: Locale;
 }
 
+/**
+ * This class creates a Comprose instance
+ *
+ * @param ComproseParams - optionally set the locale and a fallback
+ *
+ * @example
+ * ```ts
+ *  const comprose = new Comprose({
+ *    dataset: 'faker',
+ *    locale: 'en',
+ *  });
+ * ```
+ *
+ * @public
+ */
+
 export class Comprose {
+  /**
+   * @ignore
+   */
   private _data: typeof data;
 
   dataset: Dataset;
   locale: Locale;
   localeFallback: Locale;
 
-  constructor({ dataset, locale }: ComproseParams) {
+  /**
+   * @param ComproseParams - optionally set the locale and a fallback
+   */
+  constructor({ dataset, locale, localeFallback }: ComproseParams = {}) {
     this._data = data;
     this.dataset = dataset || 'faker';
     this.locale = locale || 'en';
-    this.localeFallback = locale || 'en';
+    this.localeFallback = localeFallback || 'en';
   }
 
-  get data(): typeof data.faker.en & typeof data.compromise {
+  /**
+   * @ignore
+   */
+  private get data(): typeof data.faker.en & typeof data.compromise {
     if (this.dataset === 'faker') {
       return (this._data.faker[this.locale] ||
         this._data.faker[this.localeFallback]) as any;
