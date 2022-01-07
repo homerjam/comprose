@@ -1,8 +1,9 @@
 {
   "name": "comprose",
   "version": "0.0.0",
-  "description": "Compose written language in its ordinary form (data from faker.js)",
+  "description": "Compose fake data for seeding (data from faker.js)",
   "repository": {
+    "type": "git",
     "url": "https://github.com/homerjam/comprose"
   },
   "author": "James Homer <james@homerjam.es>",
@@ -20,9 +21,7 @@
   "module": "dist/comprose.mjs",
   "typings": "dist/comprose.d.ts",
   "files": [
-    "dist/*",
-    "LICENSE",
-    "README.md"
+    "dist/*"
   ],
   "scripts": {
     "lint": "eslint src/* test/*",
