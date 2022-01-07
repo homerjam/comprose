@@ -68,7 +68,7 @@ export type Locale =
   | 'zh_TW';
 
 /**
- * The params for {@link Comprose}.
+ * Options for creating a new  {@link Comprose} instance
  */
 export interface ComproseParams {
   /**
@@ -89,13 +89,9 @@ export interface ComproseParams {
 }
 
 /**
- * The params for {@link Comprose.personName}, {@link Comprose.personFirstName}
+ * {@link Comprose.personName}, {@link Comprose.personFirstName}
  */
 export interface PersonNameParams {
-  /**
-   * Optional gender
-   * @defaultValue undefined
-   */
   gender?: 'male' | 'female';
 }
 
