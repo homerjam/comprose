@@ -25,11 +25,15 @@ files = await Promise.all(
     if (file.split('.').pop() !== 'js') return;
 
     const { default: data } = await import(file);
-    const path = file
-      .replace(`${dataDir}/`, '')
-      .replace(/\.js/, '')
-      .split('/')
-      .map(camelCase);
+
+    let path = file.replace(`${dataDir}/`, '').replace(/\.js/, '').split('/');
+
+    path = path.map((part, i) => {
+      if (path[0] === 'faker' && i === 1) {
+        return part;
+      }
+      return camelCase(part);
+    });
 
     return {
       data,

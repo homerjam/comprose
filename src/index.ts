@@ -9,48 +9,113 @@
 import { get, isArray, isString, sample, upperFirst } from 'lodash-es';
 import _data from './data/data.js';
 
+/**
+ * @ignore
+ */
 export const data = _data;
 
 /** Dataset type */
 export type Dataset = 'compromise' | 'faker';
 
 /** Locale type */
-export type Locale = 'en' | 'fr';
+export type Locale =
+  | 'az'
+  | 'ar'
+  | 'cz'
+  | 'de'
+  | 'de_AT'
+  | 'de_CH'
+  | 'en'
+  | 'en_AU'
+  | 'en_AU_ocker'
+  | 'en_BORK'
+  | 'en_CA'
+  | 'en_GB'
+  | 'en_IE'
+  | 'en_IND'
+  | 'en_US'
+  | 'en_ZA'
+  | 'es'
+  | 'es_MX'
+  | 'he'
+  | 'fa'
+  | 'fi'
+  | 'fr'
+  | 'fr_CA'
+  | 'fr_CH'
+  | 'ge'
+  | 'hy'
+  | 'hr'
+  | 'id_ID'
+  | 'it'
+  | 'ja'
+  | 'ko'
+  | 'nb_NO'
+  | 'ne'
+  | 'nl'
+  | 'nl_BE'
+  | 'pl'
+  | 'pt_BR'
+  | 'pt_PT'
+  | 'ro'
+  | 'ru'
+  | 'sk'
+  | 'sv'
+  | 'tr'
+  | 'uk'
+  | 'vi'
+  | 'zh_CN'
+  | 'zh_TW';
 
 /**
  * The params for {@link Comprose}.
- *
- * @public
  */
 export interface ComproseParams {
   /**
    * The dataset to use
-   * @defaultValue 'faker'
+   * @default 'faker'
    */
   dataset?: Dataset;
   /**
-   * The default locale to use
-   * @defaultValue 'en'
+   * The locale to use
+   * @default 'en'
    */
   locale?: Locale;
   /**
    * The fallback locale to use
-   * @defaultValue 'en'
+   * @default 'en'
    */
   localeFallback?: Locale;
 }
 
 /**
- * This class creates a Comprose instance
+ * The params for {@link Comprose.personName}, {@link Comprose.personFirstName}
+ */
+export interface PersonNameParams {
+  /**
+   * Optional gender
+   * @defaultValue undefined
+   */
+  gender?: 'male' | 'female';
+}
+
+/**
+ * This class creates a Comprose instance and defines the default dataset and
+ * locale to be used by all methods.
  *
- * @param ComproseParams - optionally set the locale and a fallback
  *
  * @example
+ *
  * ```ts
- *  const comprose = new Comprose({
- *    dataset: 'faker',
- *    locale: 'en',
- *  });
+ * import { Comprose } from 'comprose';
+ *
+ * const comprose = new Comprose({
+ *   dataset: 'faker',
+ *   locale: 'en',
+ * });
+ *
+ * comprose.personName();
+ * // John Smith
  * ```
  *
  * @public
@@ -92,28 +157,60 @@ export class Comprose {
     return this._data.faker.en as any;
   }
 
-  get(collectionOrSelector: string | string[] | string[][] = []) {
-    if (isString(collectionOrSelector)) {
-      return sample(get(this.data, collectionOrSelector, [])) || '';
-    }
-    if (isArray(collectionOrSelector)) {
-      return sample(collectionOrSelector.flat()) || '';
-    }
-    return '';
+  /**
+   * @param collectionsOrPaths
+   *
+   * Pass a collection, or a series of collections and return a random sample.
+   * Alternatively use path strings and the default dataset and locale will be used.
+   *
+   * @example
+   * ```ts
+   * import { data, Comprose } from 'comprose';
+   *
+   * const comprose = new Comprose();
+   *
+   * comprose.get(data.faker.en.animal.dog);
+   * // Bulldog
+   *
+   * comprose.get(data.faker.en.address.cityName, data.faker.fr.address.cityName);
+   * // London
+   *
+   * comprose.get('animal.dog', data.faker.fr.address.cityName);
+   * // Paris
+   * ```
+   */
+  get(...collectionsOrPaths: string[] | string[][]) {
+    return (
+      sample(
+        collectionsOrPaths
+          .map((collectionOrPath) => {
+            if (isString(collectionOrPath)) {
+              return get(
+                this.data,
+                collectionOrPath,
+                get(this._data, collectionOrPath, [])
+              );
+            }
+            if (isArray(collectionOrPath)) {
+              return collectionOrPath;
+            }
+          })
+          .flat()
+      ) || ''
+    );
   }
 
-  personFirstName(
-    { gender }: Record<'gender', 'male' | 'female' | undefined> = {
-      gender: undefined,
-    }
-  ) {
+  /**
+   * @param PersonNameParams
+   */
+  personFirstName({ gender }: PersonNameParams = {}) {
     const name: string = gender
       ? this.get(this.data.name[`${gender}FirstName`])
-      : this.get([
+      : this.get(
           this.data.name.firstName,
           this.data.name.femaleFirstName,
-          this.data.name.maleFirstName,
-        ]);
+          this.data.name.maleFirstName
+        );
 
     return upperFirst(name);
   }
@@ -122,11 +219,16 @@ export class Comprose {
     return upperFirst(this.get(this.data.name.lastName));
   }
 
-  personName(
-    { gender }: Record<'gender', 'male' | 'female' | undefined> = {
-      gender: undefined,
-    }
-  ) {
+  /**
+   * @param PersonNameParams
+   *
+   * @example
+   * ```ts
+   * comprose.personName({ gender: 'male' });
+   * // John Smith
+   * ```
+   */
+  personName({ gender }: PersonNameParams = {}) {
     return `${this.personFirstName({ gender })} ${this.personLastName()}`;
   }
 

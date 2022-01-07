@@ -1,8 +1,19 @@
 {
   "name": "comprose",
   "version": "0.0.0",
-  "description": "Compose written language in its ordinary form",
+  "description": "Compose written language in its ordinary form (data from faker.js)",
+  "repository": {
+    "url": "https://github.com/homerjam/comprose"
+  },
   "author": "James Homer <james@homerjam.es>",
+  "keywords": [
+    "faker",
+    "fake data",
+    "seed",
+    "random",
+    "compose",
+    "prose"
+  ],
   "license": "MIT",
   "type": "module",
   "main": "dist/comprose.js",
