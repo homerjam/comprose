@@ -2,6 +2,7 @@
   "name": "comprose",
   "version": "0.0.1",
   "description": "Compose fake data for seeding (data from faker.js)",
+  "homepage": "https://homerjam.github.io/comprose",
   "repository": {
     "type": "git",
     "url": "https://github.com/homerjam/comprose"
